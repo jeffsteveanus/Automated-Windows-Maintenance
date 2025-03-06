@@ -1,6 +1,6 @@
 # Automated Windows Maintenance
 
-Automated Windows Maintenance (AWM) is a comprehensive tool designed to perform various maintenance tasks on Windows systems. This tool helps in cleaning junk files, browser cookies, cache, history, and more. It also includes features like defragmentation, disk check, and system file checker.
+Automated Windows Maintenance (AWM) is a comprehensive tool designed to perform various maintenance tasks on Windows systems. This tool helps in cleaning junk files, cache, history, and more. It also includes features like defragmentation, disk check, and system file checker.
 
 ## Features
 
