@@ -26,7 +26,7 @@ Automated Windows Maintenance (AWM) is a comprehensive tool designed to perform 
 
 ## Installation
 
-1. Download the executable file `Automated_Windows_Maintenance_1.4.0.exe`.
+1. Download the executable file from [Release](https://github.com/jeffsteveanus/Automated-Windows-Maintenance/releases).
 2. Run the executable with administrative privileges.
 
 ## Usage
