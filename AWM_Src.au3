@@ -17,14 +17,14 @@
 #include <GuiEdit.au3>
 
 ; Begin of Executable File Information
-#pragma compile(Out, Automated_Windows_Maintenance_1.4.0.exe)
+#pragma compile(Out, Automated_Windows_Maintenance_1.4.1.exe)
 #pragma compile(Icon, D:\Programming\AutoIT\AWM Project\icon.ico)
 #pragma compile(UPX, True)
 #pragma compile(FileDescription, 'Automated Windows Maintenance 1.4.0 (Public)')
 #pragma compile(ProductName, Automated Windows Maintenance)
-#pragma compile(ProductVersion, 1.4.0)
-#pragma compile(FileVersion, 1.4.0.0)
-#pragma compile(LegalCopyright, � 2020-2025 Jeff Steveanus)
+#pragma compile(ProductVersion, 1.4.1)
+#pragma compile(FileVersion, 1.4.1.0)
+#pragma compile(LegalCopyright, © 2020-2025 Jeff Steveanus)
 #pragma compile(LegalTrademarks, 'Tiakan oku Sinalau Bakas')
 #pragma compile(CompanyName, 'Jeff Steveanus')
 ; End of Executable File Information
@@ -45,7 +45,7 @@ GUICtrlSetState(-1, $GUI_CHECKED)
 $LblCleaner = GUICtrlCreateLabel("Cleaner Program:", 16, 32, 85, 17)
 $LblAction = GUICtrlCreateLabel("Action:", 244, 32, 37, 17)
 $ComboCleaner = GUICtrlCreateCombo("", 104, 27, 129, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
-GUICtrlSetData(-1, "Windows Disk Cleanup", "Windows Disk Cleanup")
+GUICtrlSetData(-1, "Windows Disk Cleanup|BleachBit", "BleachBit")
 $ComboAction = GUICtrlCreateCombo("", 284, 27, 193, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
 GUICtrlSetData(-1, "Do Nothing|Close Application|Restart|Shutdown", "Do Nothing")
 $DeleteAWMData = GUICtrlCreateCheckbox("Delete AWM (this app) Program data before defragmentation", 177, 120, 305, 17)
@@ -59,7 +59,7 @@ GUICtrlSetState(-1, $GUI_CHECKED)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 $GrpLogs = GUICtrlCreateGroup("Logs:", 8, 160, 481, 209)
 $TxtCurrentProcess = GUICtrlCreateEdit("", 16, 176, 465, 185, BitOR($ES_AUTOVSCROLL, $ES_AUTOHSCROLL, $ES_READONLY, $ES_WANTRETURN, $WS_VSCROLL))
-GUICtrlSetData(-1, StringFormat("What this program does:\r\n1. Clean all junk files, browser cookies, cache, and history.\r\n2. Clean CryptNet SSL Certificate Cache.\r\n3. Clean DNS Cache.\r\n4. Clean Logs.\r\n5. Remove Non-Present Drives.\r\n6. Clean Windows Update Cache.\r\n7. Defrag Home Drive.\r\n8. Check and restore Windows health and file integrity.\r\n\r\nWhat's New in Version 1.4.0:\r\n1. [Added] System File Checker\r\n2. [Added] Check and Restore Windows Health\r\n3. [Added] Automatic Check Drive Type (SSD or HDD)\r\n4. [Change] Disable Disk Defragmentation on SSD\r\n5. [Change] Disable Disk Check on SSD\r\n6. [Misc] Update all third-party programs used by this program\r\n7. [Misc] Major Program Update\r\n"))
+GUICtrlSetData(-1, StringFormat("What this program does:\r\n1. Clean all junk files, browser cookies, cache, and history.\r\n2. Clean CryptNet SSL Certificate Cache.\r\n3. Clean DNS Cache.\r\n4. Clean Logs.\r\n5. Remove Non-Present Drives.\r\n6. Clean Windows Update Cache.\r\n7. Defrag Home Drive.\r\n8. Check and restore Windows health and file integrity.\r\n\r\nWhat's New in Version 1.4.1:\r\n1. [Added] BleachBit as default cleaner program\r\n"))
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 $BtnJobs = GUICtrlCreateButton("START NOW", 160, 376, 171, 33)
 GUICtrlCreateLabel("This is an open-source program", 145, 424, 208, 17)
@@ -231,9 +231,11 @@ Func Extract()
    FileInstall("D:\Programming\AutoIT\AWM Project\AWM_ProgramData\7za.dll", $AppTemp & "7za.dll", 1)
    FileInstall("D:\Programming\AutoIT\AWM Project\AWM_ProgramData\7za.exe", $AppTemp & "7za.exe", 1)
    FileInstall("D:\Programming\AutoIT\AWM Project\AWM_ProgramData\DriveCleanup.7z", $AppTemp & "DriveCleanup.7z", 1)
+   FileInstall("D:\Programming\AutoIT\AWM Project\AWM_ProgramData\BleachBit.7z", $AppTemp & "BleachBit.7z", 1)
 
    GUICtrlSetData($GrpLogs, "Current Process: Extracting DriveCleanup Utility...")
    RunWait(@ComSpec & " /c " & $AppTemp & "7za.exe" & " x -y " & $AppTemp & "DriveCleanup.7z -o" & $AppTemp, "", @SW_HIDE)
+   RunWait(@ComSpec & " /c " & $AppTemp & "7za.exe" & " x -y " & $AppTemp & "BleachBit.7z -o" & $AppTemp, "", @SW_HIDE)
 EndFunc
 
 Func CleanUp()
@@ -278,6 +280,13 @@ Func CleanUp()
 	RunWait(@ComSpec & " /c " & 'cleanmgr.exe /sagerun:1997 & exit', "", @SW_HIDE)
 
 	_GUICtrlEdit_AppendText($TxtCurrentProcess,"Windows Disk Cleanup successfully cleaned your computer.." & @CRLF)
+
+    If $CleanerProg = "BleachBit" Then
+		_GUICtrlEdit_AppendText($TxtCurrentProcess,"Running BleachBit...." & @CRLF)
+		GUICtrlSetData($GrpLogs, "Current Process: Cleaning using BleachBit...")
+        RunWait(@ComSpec & " /c " & $AppTemp & "BleachBit\bleachbit_console.exe" & " -c --preset", "", @SW_SHOW)
+    EndIf
+
 EndFunc
 
 Func SystemFileChecker()
@@ -391,4 +400,3 @@ Func ClearEventLogs()
         EndIf
     Next
 EndFunc
-
