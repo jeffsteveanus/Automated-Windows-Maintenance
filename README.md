@@ -14,15 +14,9 @@ Automated Windows Maintenance (AWM) is a comprehensive tool designed to perform 
 - **Run Disk Check (chkdsk)**: Performs a disk check.
 - **Delete AWM Program Data**: Deletes AWM program data before defragmentation.
 
-## What's New in Version 1.4.0
+## What's New in Version 1.4.1
 
-1. **Added**: System File Checker
-2. **Added**: Check and Restore Windows Health
-3. **Added**: Automatic Check Drive Type (SSD or HDD)
-4. **Change**: Disable Disk Defragmentation on SSD
-5. **Change**: Disable Disk Check on SSD
-6. **Misc**: Update all third-party programs used by this program
-7. **Misc**: Major Program Update
+1. **Added**: BleachBit as default cleaner program
 
 ## Installation
 
